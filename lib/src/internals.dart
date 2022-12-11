@@ -37,6 +37,7 @@ class Parser {
     String data, {
     this.defaultTextStyle,
     this.linksCallback,
+    this.tabCallback,
     this.overrideStyleMap,
   }) {
     _events = parseEvents(data);
@@ -46,6 +47,7 @@ class Parser {
   Iterable<XmlEvent> _events = <XmlEvent>[];
   final BuildContext context;
   final Function(dynamic)? linksCallback;
+  final Function(dynamic)? tabCallback;
   final Map<String, TextStyle>? overrideStyleMap;
 
   final TextStyle? defaultTextStyle;
@@ -126,7 +128,12 @@ class Parser {
           },
       );
     }
-    return TextSpan(style: textStyle, text: text);
+    return TextSpan(style: textStyle, text: text, recognizer: TapGestureRecognizer()
+      ..onTap = () {
+        if (tabCallback !== null) {
+          tabCallback!(text);
+        }
+      });
   }
 
   TextSpan _handleText(String text) {

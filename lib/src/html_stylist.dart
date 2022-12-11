@@ -57,9 +57,12 @@ class HTML {
   /// ```
 
   static TextSpan toTextSpan(BuildContext context, String htmlContent,
-      {Function(dynamic)? linksCallback,
-      Map<String, TextStyle>? overrideStyle,
-      TextStyle? defaultTextStyle}) {
+      {
+        Function(dynamic)? linksCallback,
+        Function(dynamic)? tabCallback,
+        Map<String, TextStyle>? overrideStyle,
+        TextStyle? defaultTextStyle
+      }) {
     // Validating empty content
     if (htmlContent.isEmpty) {
       return const TextSpan();
@@ -75,6 +78,7 @@ class HTML {
 
     final Parser parser = Parser(context, HtmlUnescape().convert(content),
         linksCallback: linksCallback,
+        tabCallback: tabCallback,
         overrideStyleMap: overrideStyle ?? <String, TextStyle>{},
         defaultTextStyle: defaultTextStyle);
 
