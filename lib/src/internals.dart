@@ -130,7 +130,7 @@ class Parser {
     }
     return TextSpan(style: textStyle, text: text, recognizer: TapGestureRecognizer()
       ..onTap = () {
-        if (tabCallback !== null) {
+        if (tabCallback != null) {
           tabCallback!(text);
         }
       });
